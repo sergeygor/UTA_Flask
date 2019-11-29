@@ -1,7 +1,7 @@
 # UTA_Flask
 Dynamic web apps using Python and Flask, Flask-MongoEngine, Flask-Security, test REST APIs using Postman.
 
-Objectives:
+<h3>Objectives:<h/3>
     Creating and running a simple Flask app
     Creating a Flask project
     Working with templates
