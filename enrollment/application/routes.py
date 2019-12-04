@@ -1,6 +1,7 @@
 from application import app, db
-from flask import render_template, request, json, Response
+from flask import render_template, request, json, Response, redirect, flash
 from application.models import User, Couse, Enrollment
+from application.forms import LoginForm, RegisterForm
 
 courseData = [{"courseID":"1111","title":"PHP 101","description":"Intro to PHP",
  "credits":3,"term":"Fall, Spring"}, {"courseID":"2222","title":"Java 1",
@@ -18,9 +19,16 @@ courseData = [{"courseID":"1111","title":"PHP 101","description":"Intro to PHP",
 def index():
     return render_template("index.html", index = True)
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("login.html", login = True)
+    form = LoginForm()
+    if form.validate_on_submit():
+        if request.form.get("email")=="test@uta.com":
+            flash("Your are successfully logged in!", "success")
+            return redirect("/index")
+        else:
+            flash("Sorry, something went wrong!", "danger")
+    return render_template("login.html", title="Login", form=form, login = True)
 
 @app.route("/courses/")
 @app.route("/courses/<term>")
