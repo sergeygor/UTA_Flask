@@ -35,9 +35,16 @@ def login():
 def courses(term = "Spring 2019"):
     return render_template("courses.html", courseData = courseData, courses = True, term = term)
 
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
-    return render_template("register.html", register = True)
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if request.form.get("email")=="test@uta.com":
+            flash("Your are successfully submit registration form!", "success")
+            return redirect("/index")
+        else:
+            flash("Sorry, something went wrong!", "danger")
+    return render_template("register.html", title="Register", form=form, register = True)
 
 @app.route("/enrollment", methods=["GET", "POST"])
 def enrollment():
